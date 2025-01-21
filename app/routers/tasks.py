@@ -4,13 +4,14 @@ from fastapi import APIRouter, HTTPException
 from celery_app.celery_config import celery_app
 from app.services.sqlite_service import save_task, get_task
 import redis.asyncio as redis
+from typing import Dict
 
 router = APIRouter(prefix="/tasks", tags=["Tasks"])
 redis_client = redis.Redis(host="localhost", port=6379, db=0, decode_responses=True)
 
 
 @router.post("/", status_code=201)
-async def create_task():
+async def create_task() -> Dict[str, str]:
     """Creates a new background task."""
     print("Task creation initiated.")
     try:
@@ -31,8 +32,9 @@ async def create_task():
 
 
 @router.get("/{task_id}")
-async def get_task_status(task_id: str):
-    """Fetch the status and result of a background task."""
+async def get_task_status(task_id: str) -> Dict[str, str]:
+    """Fetch the status of a background task."""
+    found = True
     try:
         # Validate task_id
         if not task_id or not isinstance(task_id, str):
@@ -49,7 +51,7 @@ async def get_task_status(task_id: str):
         # If not cached, retrieve the task from the database
         task = get_task(task_id)
         if not task:
-            raise HTTPException(status_code=404, detail="Task Not Found")
+            found = False
 
         status = task["status"]
 
@@ -61,4 +63,5 @@ async def get_task_status(task_id: str):
     except ValueError as e:
         raise HTTPException(status_code=400, detail=f"Validation error: {e}")
     except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Error while fetching task: {e}")
+        raise HTTPException(status_code=500, detail=f"Error while fetching task: {e}")\
+            if found else HTTPException(status_code=404, detail="Task not found")

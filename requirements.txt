@@ -4,3 +4,5 @@ celery
 redis[asyncio]
 pydantic[dotenv]
 python-dotenv
+pytest
+httpx

@@ -4,7 +4,6 @@ from app.services.sqlite_service import init_db
 
 init_db()  # Ensures the database is initialized when the app starts
 
-
 app = FastAPI(
     title="Welcome to Task Processing Omer",
     version="1.0.0"
