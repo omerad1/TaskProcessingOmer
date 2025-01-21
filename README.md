@@ -78,10 +78,3 @@ storing their statuses in an SQLite database, and caching them in Redis for quic
     ```bash
     pytest tests/
     ```
-
----
-
-### Key Formatting Details:
-- Use triple backticks (\`\`\`) for multi-line code blocks.
-- Specify the language for syntax highlighting (e.g., `bash`, `json`).
-- Use single backticks (\`) for inline code (e.g., `POST /tasks/`).
