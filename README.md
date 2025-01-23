@@ -15,7 +15,10 @@ storing their statuses in an SQLite database, and caching them in Redis for quic
 
 ## Architecture Overview
 Here’s a high-level diagram showing how FastAPI, Redis, Celery, and SQLite interact:
+
 ![diagram.png](diagram.png)
+
+
 ## Prerequisites
 
 - Python 3.10+
