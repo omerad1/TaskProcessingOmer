@@ -12,6 +12,10 @@ storing their statuses in an SQLite database, and caching them in Redis for quic
 - **SQLite Database**: Persist task information.
 - **Simple Deployment**: Use the `run.sh` script to start the entire system.
 
+
+## Architecture Overview
+Here’s a high-level diagram showing how FastAPI, Redis, Celery, and SQLite interact:
+![diagram.png](diagram.png)
 ## Prerequisites
 
 - Python 3.10+
